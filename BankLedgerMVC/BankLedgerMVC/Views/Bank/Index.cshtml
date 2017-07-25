@@ -1,0 +1,28 @@
+@model BankLedgerMVC.Models.Account
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>WELCOME TO BANK LEDGER</h2>
+<h2>@ViewData["Message"]</h2>
+
+@if (@Model != null) {
+    <h3>WELCOME</h3>
+    <h4>Name: @Model.Name</h4>
+    <h4>Account Number: @Model.AccountNumber</h4>
+    <h4>Username: @Model.UserName</h4>
+    <h4>Password: @Model.Password</h4>
+    <h4>Balance: @Model.Balance</h4>
+}
+
+else {
+    <form method="POST" action="@Url.Action("VerifyLogin", "Bank")">
+        <h3>Login:</h3>
+        <label>username:</label>
+        <input type="text" name="Username"><br>
+        <label>password:</label>
+        <input type="text" name="Password"><br>
+        <input type="submit">
+    </form>
+}

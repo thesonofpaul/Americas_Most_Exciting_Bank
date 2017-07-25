@@ -1,0 +1,25 @@
+@model BankLedgerMVC.Models.TransactionViewModel
+@{
+    ViewData["Title"] = "Transaction History";
+}
+
+@if (@Model != null) {
+    <h3>Account Information</h3>
+    <h4>Name: @Model.TransactionAccount.Name</h4>
+    <h4>Account Number: @Model.TransactionAccount.AccountNumber</h4>
+    <h4>Username: @Model.TransactionAccount.UserName</h4>
+    <h4>Balance: @Model.TransactionAccount.Balance</h4>
+
+    <h3>Transaction History</h3>
+    for (int i=0; i<@Model.Transactions.Count; i++) {
+        <div>
+            <ol>
+                <li>Transaction #@(i+1)</li>
+                <li>Date: @Model.Transactions[i].Date</li>
+                <li>Transaction Type: @Model.Transactions[i].TransactionType</li>
+                <li>Amount: $@Model.Transactions[i].Amount</li>
+            </ol>
+        </div>
+    }
+}
+
