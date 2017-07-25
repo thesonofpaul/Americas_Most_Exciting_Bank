@@ -5,10 +5,13 @@
 
 <h3>@ViewData["Message"]</h3>
 
-@if (@Model != null) {
-    <h4>Name: @Model.Name</h4>
-    <h4>Username: @Model.UserName</h4>
-    <h4>Available Balance: @Model.Balance</h4>
+@if (@Model != null)
+{
+    <div class="container">
+        <h4>Name: @Model.Name</h4>
+        <h4>Username: @Model.UserName</h4>
+        <h4>Available Balance: $@Model.Balance</h4>
+    </div>
 }
 
 <form method="POST" action="@Url.Action("VerifyTransaction", "Bank")">

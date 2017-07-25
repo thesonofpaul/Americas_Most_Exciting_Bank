@@ -26,7 +26,7 @@ namespace BankLedgerMVC.Controllers
 
             if (IsLoggedIn())
             {
-                @ViewBag.Message = 5;
+                @ViewBag.Message = "Account is already logged in. Please log out before logging into another account.";
             }
 
             var validLogIn = (from account in accountList
@@ -34,7 +34,6 @@ namespace BankLedgerMVC.Controllers
                               select account);
             if (!validLogIn.Any())
             {
-                @ViewBag.Message = username+password;
                 return View("Index");
             }
             else
@@ -54,6 +53,14 @@ namespace BankLedgerMVC.Controllers
 
         public ActionResult VerifyCreate(string accountNumber, string name, string username, string password) {
             var accountList = accountClient.GetAccounts();
+            var isLoggedIn = (from account in accountList
+                              where account.LoggedIn
+                              select account);
+            foreach (Account account in isLoggedIn)
+            {
+                account.LoggedIn = false;
+                accountClient.UpdateAccount(account);
+            }
 
             var x = (from account in accountList
                      where account.UserName.Equals(username) || account.AccountNumber.Equals(accountNumber)
@@ -61,7 +68,7 @@ namespace BankLedgerMVC.Controllers
 
             if (x.Any())
             {
-                @ViewBag.Message = 2;
+                @ViewBag.Message = "Account Number or Username already exists";
                 return View("CreateAccount");
             }
 
@@ -120,7 +127,7 @@ namespace BankLedgerMVC.Controllers
                 {
                     if (currLogIn.Balance - amount < 0)
                     {
-                        @ViewBag.Message = 6;
+                        @ViewBag.Message = "Invalid Amount Entered. Please try again";
                         return View("Transaction", currLogIn);
                     }
                     currLogIn.Balance -= amount;
@@ -131,7 +138,7 @@ namespace BankLedgerMVC.Controllers
                 }
                 else
                 {
-                    @ViewBag.Message = "Error: Invalid transaction type. Please try again";
+                    @ViewBag.Message = "Invalid input. Please try again.";
                     return View("Transaction", currLogIn);
                 }
                 accountClient.UpdateAccount(currLogIn);
@@ -153,7 +160,7 @@ namespace BankLedgerMVC.Controllers
                                                 currLogIn.Balance);
                 return View("Transaction", currLogIn);
             } catch (FormatException) {
-                @ViewBag.Message = "Error: Invalid amount. Please try again";
+                @ViewBag.Message = "Invalid Amount Entered. Please try again";
                 return View("Transaction", currLogIn);
             }
         }

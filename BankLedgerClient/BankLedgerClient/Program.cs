@@ -15,9 +15,6 @@ namespace BankLedgerClient
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine("Starting WebAPI Server...");
-            //Process webAPIProcess = Process.Start(@"..\..\BankLedger\BankLedger\bin\Debug\BankLedger.exe");
-            //Console.WriteLine("WebAPI Server Successfully Started!");
             var accountClient = new AccountClient("http://localhost:8080");
             var transactionClient = new TransactionClient("http://localhost:8080");
 
@@ -115,7 +112,7 @@ namespace BankLedgerClient
                         resultString = "Account is already logged in. Please log out before logging into another account.";
                         break;
                     case 6:
-                        resultString = "Amount would overdraw account.Please try again.";
+                        resultString = "Invalid Amount Entered. Please try again";
                         break;
                     default:
                         resultString = "";
