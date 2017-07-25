@@ -1,4 +1,4 @@
-/build/
+*/build/*
 *.suo
 *.user
 _ReSharper.*/
