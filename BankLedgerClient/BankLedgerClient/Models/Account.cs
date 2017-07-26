@@ -18,7 +18,7 @@ namespace BankLedgerClient.Models
         {
             return string.Format("Account Number: {0}\n" +
                 "Name: {1}\nUsername: {2}\nPassword: {3}\n" +
-                "Balance: {4}\nLogged in status: {5}",
+                "Balance: {4}",
                 AccountNumber, Name, UserName, Password, Balance, LoggedIn);
         }
     }

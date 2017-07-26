@@ -22,8 +22,9 @@ namespace BankLedgerClient
             {
                 Console.WriteLine("Enter command:\n");
                 string input = Console.ReadLine();
-                string[] inputList = input.Split(' ');
+                List<string> inputList = input.Split(' ').Select(p => p.Trim()).ToList();
                 int result;
+                decimal x;
                 switch (inputList[0])
                 {
                     case "create":
@@ -50,9 +51,9 @@ namespace BankLedgerClient
                         result = Logout();
                         break;
                     case "deposit":
-                        if (inputList.Count() > 1)
+                        if (inputList.Count() > 1 && Decimal.TryParse(inputList[1], out x))
                         {
-                            result = Deposit(Decimal.Parse(inputList[1]));
+                            result = Deposit(x);
                         }
                         else
                         {
@@ -60,9 +61,9 @@ namespace BankLedgerClient
                         }
                         break;
                     case "withdraw":
-                        if (inputList.Count() > 1)
+                        if (inputList.Count() > 1 && Decimal.TryParse(inputList[1], out x))
                         {
-                            result = Withdraw(Decimal.Parse(inputList[1]));
+                            result = Withdraw(x);
                         }
                         else
                         {
@@ -87,7 +88,7 @@ namespace BankLedgerClient
                         result = 0;
                         break;
                     default:
-                        result = 0;
+                        result = 1;
                         break;
                 }
                 string resultString;
